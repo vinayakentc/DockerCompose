@@ -1,0 +1,24 @@
+version: '3'
+services:
+  mysql:
+    image: 524528614447.dkr.ecr.us-east-2.amazonaws.com/database123:latest
+    container_name: mysqldb
+    environment:
+    - MYSQL_ROOT_PASSWORD=ganesh123
+    - MYSQL_DATABASE=mydb
+    volumes:
+    - mysqlvol1:/var/lib/mysql
+  backend:
+    image: 524528614447.dkr.ecr.us-east-2.amazonaws.com/backend123:latest
+    container_name: backend
+    links:
+    - mysql
+  frontend:
+    image: 524528614447.dkr.ecr.us-east-2.amazonaws.com/frontend123:latest
+    container_name: frontend
+    links:
+    - backend
+    ports:
+    - 80:80
+volumes:
+  mysqlvol1:
